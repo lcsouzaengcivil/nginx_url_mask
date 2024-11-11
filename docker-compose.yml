@@ -1,0 +1,17 @@
+services:
+  nginx:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./sub.example.com.pem:/etc/ssl/certs/sub.example.com.pem
+      - ./sub.example.com-key.pem:/etc/ssl/private/sub.example.com-key.pem
+    networks:
+      - nginx-net
+    extra_hosts:
+      - "sub.example.com:127.0.0.1" # Adiciona o domínio ao hosts local para teste
+    
+networks:
+  nginx-net:
+    driver: bridge
